@@ -1,0 +1,156 @@
+// Docs: https://element-plus.org/en-US/guide/theming.html#by-scss-variables
+// Github: https://github.com/element-plus/element-plus/blob/dev/packages/theme-chalk/src/common/var.scss
+
+////////////////////////// Define custom SCSS variables //////////////////////////
+
+// Theme Colors
+$so-primary--color: #0a5e58;
+$so-success--color: #31b494;
+$so-warning--color: #f56920;
+$so-danger--color: #ca130f;
+$so-error--color: #ca130f90;
+$so-info--color: #a7d4de;
+
+// Other colors
+$so-background--color: #f2f2f2;
+$so-primary--color-lightend: #0a5e5826;
+$so-text-color: #222222;
+
+// Text/Fonts
+$so-font--family: 'Lato', 'Segoe UI', Tahoma, Arial, sans-serif;
+$so-font-height: 140%;
+$so-font-weight--regular: 400;
+$so-font-weight--bold: 700;
+
+// Border radius
+$so-input--border_radius: 15px;
+
+// Shadows
+$so-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+////////////////////////// Imports //////////////////////////
+@use 'sass:math';
+@use 'sass:map';
+
+// Must be declared before we can override the style in @forward
+$button: () !default;
+$font-family: () !default;
+$table: () !default;
+$messagebox: () !default;
+$dialog: () !default;
+$card: () !default;
+
+////////////////////////// Forwarding ElementPlus theme SCSS //////////////////////////
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  // Theming colors
+  $colors:
+    (
+      'primary': (
+        'base': $so-primary--color,
+      ),
+      'success': (
+        'base': $so-success--color,
+      ),
+      'warning': (
+        'base': $so-warning--color,
+      ),
+      'danger': (
+        'base': $so-danger--color,
+      ),
+      'error': (
+        'base': $so-error--color,
+      ),
+      'info': (
+        'base': $so-info--color,
+      )
+    ),
+  // Buttons
+  $button:
+    map.merge(
+      (
+        'font-weight': $so-font-weight--regular,
+      ),
+      $button
+    ),
+  // Tables
+  $table:
+    map.merge(
+      (
+        // Uncomment and customize as needed
+        // "border-color": getCssVar("border-color-lighter"),
+        // "border": 1px solid getCssVar("table-border-color"),
+        // "text-color": getCssVar("text-color-regular"),
+        //   'header-text-color': red,
+        // "row-hover-bg-color": getCssVar("fill-color", "light"),
+        // "current-row-bg-color": getCssVar("color-primary-light-9"),
+        // "header-bg-color": getCssVar("bg-color"),
+        // "fixed-box-shadow": getCssVar("box-shadow", "light"),
+        // "bg-color": getCssVar("fill-color", "blank"),
+        // "tr-bg-color": getCssVar("bg-color"),
+        // "expanded-cell-bg-color": getCssVar("fill-color", "blank"),
+        // "fixed-left-column": inset 10px 0 10px -10px rgb(0 0 0 / 15%),
+        // "fixed-right-column": inset -10px 0 10px -10px rgb(0 0 0 / 15%),
+        // "index": getCssVar("index-normal")
+      ),
+      $table
+    ),
+  // Message box
+  $messagebox:
+    map.merge(
+      (
+        'border-radius': $so-input--border_radius,
+        'box-shadow': $so-box-shadow,
+        'content-color': $so-text-color,
+        'font-line-height': $so-font-height,
+      ),
+      $messagebox
+    ),
+  // Dialogs
+  $dialog:
+    map.merge(
+      (
+        'box-shadow': $so-box-shadow,
+        'font-line-height': $so-font-height,
+        'border-radius': $so-input--border_radius,
+      ),
+      $dialog
+    ),
+  // Cards
+  $card:
+    map.merge(
+      (
+        'border-radius': $so-input--border_radius,
+      ),
+      $card
+    )
+);
+
+////////////////////////// Import ElementPlus styles //////////////////////////
+@use 'element-plus/theme-chalk/src/index.scss' as *;
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////// Change global ElementPlus styles ////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+body {
+  //   background-color: $so-background--color;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  font-family: $so-font--family;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $so-primary--color;
+}
+
+p {
+  line-height: $so-font-height;
+}
